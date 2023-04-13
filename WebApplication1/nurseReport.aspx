@@ -76,11 +76,14 @@
             Patient Symptoms:</label><br />
             <asp:TextBox ID="symptomsBox" runat="server" BackColor="#CCCCCC" BorderWidth="2px" Height="57px" MaxLength="200" TextMode="MultiLine" Width="420px"></asp:TextBox>
 &nbsp;<br />
-            Patient Prescription:<br />
+            Patient Treatment:<br />
             <asp:TextBox ID="prescriptionBox" runat="server" BackColor="#CCCCCC" BorderWidth="2px" Height="57px" MaxLength="200" TextMode="MultiLine" Width="420px"></asp:TextBox>
             <br />
             <br />
-            &nbsp;<asp:CheckBox ID="evaluationCheckbox" runat="server" BackColor="#CCCCCC" BorderColor="Black" BorderStyle="Solid" BorderWidth="2px" Text="Requires Further Evaluation/Tests" />
+            <asp:CheckBox ID="prescriptionCheckBox" runat="server" BackColor="#CCCCCC" BorderColor="Black" BorderWidth="2px" Text="Requires Prescription" Width="182px" />
+            <br />
+            <br />
+            &nbsp;<asp:CheckBox ID="evaluationCheckbox" runat="server" BackColor="#CCCCCC" BorderColor="Black" BorderStyle="Solid" BorderWidth="2px" Text="Requires Further Evaluation/Tests" Width="271px" />
             <br />
             <br />
             Follow-up evaluation:<br />

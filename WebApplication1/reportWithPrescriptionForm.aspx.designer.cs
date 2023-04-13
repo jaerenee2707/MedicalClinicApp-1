@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class nurseReport
+    public partial class reportWithPrescriptionForm
     {
 
         /// <summary>
@@ -22,15 +22,6 @@ namespace WebApplication1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm patientForm;
-
-        /// <summary>
-        /// LinkButton1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
         /// reportHeader control.
@@ -105,49 +96,49 @@ namespace WebApplication1
         protected global::System.Web.UI.WebControls.TextBox symptomsBox;
 
         /// <summary>
-        /// prescriptionBox control.
+        /// medicationBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox prescriptionBox;
+        protected global::System.Web.UI.WebControls.TextBox medicationBox;
 
         /// <summary>
-        /// prescriptionCheckBox control.
+        /// dosageBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox prescriptionCheckBox;
+        protected global::System.Web.UI.WebControls.TextBox dosageBox;
 
         /// <summary>
-        /// evaluationCheckbox control.
+        /// refillBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox evaluationCheckbox;
+        protected global::System.Web.UI.WebControls.TextBox refillBox;
 
         /// <summary>
-        /// DropDownList1 control.
+        /// instructionsBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.TextBox instructionsBox;
 
         /// <summary>
-        /// SqlDataSource1 control.
+        /// evalBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.TextBox evalBox;
 
         /// <summary>
         /// apptTotalBox control.
@@ -177,12 +168,12 @@ namespace WebApplication1
         protected global::System.Web.UI.WebControls.TextBox copayBox;
 
         /// <summary>
-        /// submitBttn control.
+        /// returnBttn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button submitBttn;
+        protected global::System.Web.UI.WebControls.Button returnBttn;
     }
 }

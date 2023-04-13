@@ -70,17 +70,19 @@ namespace WebApplication1
 
             string connectionString = "Server=medicaldatabase3380.mysql.database.azure.com;Database=medicalclinicdb2;Uid=dbadmin;Pwd=Medical123!;";
 
-            string insertVisit = "INSERT INTO visit_details (symptoms,diagnosis,prescription,temperature,bloodPressure,heartRate,appointmentID, nurseID) VALUES (@symptoms,@diagnosis,@prescription,@temperature,@pressure,@heartRate, @appID, @nurseID)";
+            string insertVisit = "INSERT INTO visit_details (symptoms,diagnosis,temperature,bloodPressure,heartRate,appointmentID, nurseID) VALUES (@symptoms,@diagnosis,@temperature,@pressure,@heartRate, @appID, @nurseID)";
             string getReportID = "Select reportID from visit_details WHERE appointmentID = @appID";
             string insertInvoice = "INSERT INTO invoice (total,claim,paid_amount,reportID) VALUES (@total,@claim,@copay,@reportID)";
             string eval = "UPDATE visit_details SET furtherEval = @furtherEval WHERE reportID = @reportID";
+
+            string requiresPrescription = "UPDATE visit_details SET (prescriptionRequired = 1) WHERE reportID = @reportID";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 MySqlCommand visitCmd = new MySqlCommand(insertVisit, connection);
                 visitCmd.Parameters.AddWithValue("@symptoms", patientSymptoms);
                 visitCmd.Parameters.AddWithValue("@diagnosis", patientDiagnosis);
-                visitCmd.Parameters.AddWithValue("@prescription", patientPrescription);
+                //visitCmd.Parameters.AddWithValue("@prescription", patientPrescription);
                 visitCmd.Parameters.AddWithValue("@temperature", temperature);
                 visitCmd.Parameters.AddWithValue("@heartrate", heartRate);
                 visitCmd.Parameters.AddWithValue("@pressure", pressure);
@@ -109,6 +111,13 @@ namespace WebApplication1
                     insertEval.Parameters.AddWithValue("@reportID", reportID);
                     insertEval.Parameters.AddWithValue("@furtherEval", furtherEval);
                     insertEval.ExecuteNonQuery();
+                }
+
+                if (prescriptionCheckBox.Checked)
+                {
+                    MySqlCommand updatePrescription = new MySqlCommand(requiresPrescription, connection);
+                    updatePrescription.Parameters.AddWithValue("@reportID", reportID);
+                    updatePrescription.ExecuteNonQuery();
                 }
 
                 connection.Close();

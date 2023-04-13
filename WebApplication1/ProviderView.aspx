@@ -57,6 +57,37 @@
     <br />
 
     <form id="form1" runat="server">
+
+
+
+        <div>
+            <h1>Prescriptions Needed</h1>
+                            <asp:GridView ID="prescriptionGrid" runat="server" AutoGenerateColumns="False" DataKeyNames="AppointmentID"
+                OnRowCommand="prescriptions_RowCommand" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" Width="561px">
+                <AlternatingRowStyle BackColor="#CCCCCC" />
+                <Columns>
+                    <asp:BoundField DataField="appointmentID" HeaderText="AppointmentID" />
+                    <asp:BoundField DataField="PatientName" HeaderText="Patient Name" />
+                    <asp:BoundField DataField="Date" HeaderText="Date" DataFormatString="{0:d}"/>
+                    <asp:ButtonField ButtonType = "button" Text="FILL OUT PRESCRIPTION" CommandName="create_prescription" HeaderText="Prescription" ControlStyle-BackColor="">
+<ControlStyle BackColor=""></ControlStyle>
+                    </asp:ButtonField>
+
+
+                </Columns>
+                <FooterStyle BackColor="#CCCCCC" />
+                <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
+                <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                <sortedascendingcellstyle backcolor="#F1F1F1" />
+                <sortedascendingheaderstyle backcolor="#808080" />
+                <sorteddescendingcellstyle backcolor="#CAC9C9" />
+                <sorteddescendingheaderstyle backcolor="#383838" />
+            </asp:GridView>
+        </div>
+
+
+
         <div>
             <h1>Upcoming Appointments</h1>
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="AppointmentID"

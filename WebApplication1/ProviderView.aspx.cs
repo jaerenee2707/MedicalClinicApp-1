@@ -61,8 +61,27 @@ namespace WebApplication1
             }
 
 
-            // Retrive data from database into referral review
-            string query2 = "SELECT appointment.appointmentID as appointmentID2, CONCAT(patients.fname, ' ', patients.lname) as PatientName2, spec.specialty as Specialist, appointment.Referral as Referral,CONCAT(spec.fname, ' ', spec.lname) as Doctor, appointmentDate as Date2 FROM appointment, patients, doctor as prim, doctor as spec  WHERE appointment.doctorID = spec.doctorID AND prim.doctorID = patients.doctorID AND appointment.patientID = patients.patientID AND prim.doctorID = @DoctorID AND prim.doctorID != spec.doctorID AND appointmentDate >= current_date() AND appointment.archive = false ORDER BY appointmentDate ASC";
+            //retrive data into prescriptions needed table
+
+            string prescriptionTableQuery = "SELECT appointment.AppointmentID,  CONCAT(patients.fname, ' ', patients.lname), appointmentDate FROM appointment INNER JOIN patients ON appointment.PatientID = Patients.patientID, visit_details WHERE appointment.doctorID = @DoctorID AND visit_details.prescriptionRequired = 1";
+            DataTable prescriptionTable = new DataTable();
+            using(MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand prescription_cmd = new MySqlCommand(prescriptionTableQuery, connection);
+                prescription_cmd.Parameters.AddWithValue("@DoctorID", doctorID);
+                connection.Open();
+                using(MySqlDataAdapter adapter = new MySqlDataAdapter(prescription_cmd))
+                {
+                    adapter.Fill(prescriptionTable);
+                    prescriptionGrid.DataSource = prescriptionTable;
+                    prescriptionGrid.DataBind();
+                }
+                connection.Close();
+            }
+
+
+                // Retrive data from database into referral review
+                string query2 = "SELECT appointment.appointmentID as appointmentID2, CONCAT(patients.fname, ' ', patients.lname) as PatientName2, spec.specialty as Specialist, appointment.Referral as Referral,CONCAT(spec.fname, ' ', spec.lname) as Doctor, appointmentDate as Date2 FROM appointment, patients, doctor as prim, doctor as spec  WHERE appointment.doctorID = spec.doctorID AND prim.doctorID = patients.doctorID AND appointment.patientID = patients.patientID AND prim.doctorID = @DoctorID AND prim.doctorID != spec.doctorID AND appointmentDate >= current_date() AND appointment.archive = false ORDER BY appointmentDate ASC";
             DataTable dt2 = new DataTable();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -344,6 +363,24 @@ namespace WebApplication1
             }
         }
 
+        protected void prescriptions_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int appointmentID = Convert.ToInt32(prescriptionGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text);
+            string query = "SELECT reportID FROM appointment WHERE appointmentID = @AID";
+            string connString = "Server=medicaldatabase3380.mysql.database.azure.com;Database=medicalclinicdb2;Uid=dbadmin;Pwd=Medical123!;";
+            MySqlConnection connect = new MySqlConnection(connString);
+            connect.Open();
+            MySqlCommand cmd = new MySqlCommand(query, connect);
+            cmd.Parameters.AddWithValue("@AID", appointmentID);
+            object result = cmd.ExecuteScalar();
+            int ReportID = Convert.ToInt32(result);
+            connect.Close();
+            int doctorID = Convert.ToInt32(Request.QueryString["doctorID"]);
+            if (e.CommandName == "create_prescription")
+            {
+                Response.Redirect("ReportView.aspx?ReportID=" + ReportID + "&doctorID=" + doctorID);
+            }
+        }
     }
 }
 
